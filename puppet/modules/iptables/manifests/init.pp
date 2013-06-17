@@ -1,0 +1,3 @@
+class iptables {
+  include firewall
+}
