@@ -1,0 +1,131 @@
+{
+  "project_page": "https://github.com/puppetlabs/puppet-postgresql",
+  "summary": "PostgreSQL defined resource types",
+  "dependencies": [
+    {
+      "version_requirement": ">=3.2.0 <5.0.0",
+      "name": "puppetlabs/stdlib"
+    },
+    {
+      "version_requirement": ">= 0.0.4",
+      "name": "puppetlabs/firewall"
+    },
+    {
+      "version_requirement": ">=1.1.0 <2.0.0",
+      "name": "puppetlabs/apt"
+    },
+    {
+      "version_requirement": ">= 0.2.0",
+      "name": "ripienaar/concat"
+    }
+  ],
+  "source": "git://github.com/puppetlabs/puppet-postgresql.git",
+  "version": "2.3.0",
+  "checksums": {
+    "manifests/database.pp": "6a5287286af16f4391791f40507f82f0",
+    "examples/postgresql_grant.pp": "6f1e08c4f7394b32573a70acc314c3a7",
+    "manifests/database_user.pp": "b5f9fdff0bdbd751dfc5f493bddcf1e3",
+    "Gemfile.lock": "6d4df62756535bdf05072d8517512979",
+    "Rakefile": "7e458ced5c7b798430ee6371f860057e",
+    "lib/puppet/provider/postgresql_psql/ruby.rb": "ed5f97f93876db0b830c2596fff16ec6",
+    "examples/server.pp": "7a44884738b92730cdcc0282a581dce2",
+    "examples/official-postgresql-repos.pp": "44e02f3c93b7d5edf1647d608c4e6310",
+    "manifests/init.pp": "229910d441d3881e4389d3a2bcd37c3a",
+    "manifests/validate_db_connection.pp": "3154199da6a6fb39c78ff86d1e5c50e7",
+    "lib/puppet/parser/functions/postgresql_password.rb": "820da02a888ab42357fe9bc2352b1c37",
+    "manifests/pg_hba.pp": "d5e130f3a2e1023061dcfb8cff8fad07",
+    "manifests/role.pp": "8a42e0e79c896d83d4e2806495e395e4",
+    "manifests/database_grant.pp": "e15df7a5e8ac065b1e73e8fdcad890cf",
+    "manifests/config.pp": "5812da4556529d2f5ebf295d64c132e0",
+    "LICENSE": "a781715ebc5e3e0956ee6baec3140e58",
+    "Modulefile": "186356d93351ccfaf5eb84e0c711d402",
+    "postgresql/tests/typical_app.pp": "f1f0b44d21ce836974314106a09b47d9",
+    "manifests/tablespace.pp": "37d8393a8d92b3b7ba1a6236cba13a9b",
+    "lib/facter/postgres_default_version.rb": "53c88744595fa06f0ce7f08211a46ae2",
+    "examples/postgresql_user.pp": "974917490d130306d45fbb8edee2d6b6",
+    "examples/postgresql_database.pp": "8c631bdc1a57c3e82b203ec3d5dde5e1",
+    "manifests/config/beforeservice.pp": "b946ef821c035bef671a1c6865fbd45c",
+    "manifests/python.pp": "cd2c8d7624ac6146fd0b9d4b8cc57ef5",
+    "manifests/package_source/yum_postgresql_org.pp": "4a80fe043d9710da0bcc34a3450159ca",
+    "Changelog": "c86a770c3613f6b6f09cd6d8f134f0f7",
+    "manifests/server.pp": "1d517c9c74c364f01d4381a580a6de2e",
+    "files/RPM-GPG-KEY-PGDG": "78b5db170d33f80ad5a47863a7476b22",
+    "examples/postgresql_pg_hba_rule.pp": "4591748c68d75a1014991de70a83aaaa",
+    "examples/postgresql_db.pp": "2db756a3dea26055fd9aa8e63201ec4d",
+    "examples/init.pp": "f7772943903ec859df2e43b61b700fd4",
+    "manifests/psql.pp": "339bae8e795f5bcf5550a88ad1e1105d",
+    "manifests/config/afterservice.pp": "033677b9d1aef3b7d941ee920c287d2c",
+    "Gemfile": "1aeb148bd15a4ddc1f42327393accae3",
+    "lib/puppet/type/postgresql_psql.rb": "ae147c9e12a1d0909bcf8d5374494fb1",
+    "examples/postgresql_tablespace.pp": "f3f6b0c2b6ff09b73ff36138604e2b92",
+    "manifests/db.pp": "d0b4f16016047cbd29cd9deccb5b7ef7",
+    "manifests/contrib.pp": "27ff6b8df85a556d9f9a28ed2b01e0f1",
+    "README.md": "fc54823515b50595ba619a81a99049cb",
+    "manifests/params.pp": "f5063f4ad876acd7ea11e6429a3945fc",
+    "manifests/initdb.pp": "9d14ae813bed54ad46d791ed490588d7",
+    "manifests/client.pp": "462bae5ffbcc40b1172e5fdbfdb909bf",
+    "manifests/package_source/apt_postgresql_org.pp": "f2077dde857658cd3a12c9956ac879d7",
+    "examples/postgresql_pgconf_extras.pp": "51b8d3bf9847a7d7c2a33b131705496f",
+    "templates/pg_hba_rule.conf": "13b46eecdfd359eddff71fa485ef2f54",
+    "manifests/devel.pp": "4ae7a114c635874555489c15a512b124",
+    "manifests/pg_hba_rule.pp": "032477ffac94d72b30c8108394568e89",
+    "manifests/java.pp": "be65d349b7657f3cc4b8dd4195e21a7c",
+    "lib/puppet/parser/functions/postgresql_acls_to_resources_hash.rb": "d518a7959b950874820a3b0a7a324488"
+  },
+  "description": "PostgreSQL defined resource types",
+  "types": [
+    {
+      "doc": "",
+      "parameters": [
+        {
+          "doc": "An arbitrary tag for your own reference; the name of the message.",
+          "name": "name"
+        },
+        {
+          "doc": "An optional SQL command to execute prior to the main :command; this is generally intended to be used for idempotency, to check for the existence of an object in the database to determine whether or not the main SQL command needs to be executed at all.",
+          "name": "unless"
+        },
+        {
+          "doc": "The name of the database to execute the SQL command against.",
+          "name": "db"
+        },
+        {
+          "doc": "The path to psql executable.",
+          "name": "psql_path"
+        },
+        {
+          "doc": "The system user account under which the psql command should be executed.",
+          "name": "psql_user"
+        },
+        {
+          "doc": "The system user group account under which the psql command should be executed.",
+          "name": "psql_group"
+        },
+        {
+          "doc": "The working directory under which the psql command should be executed.",
+          "name": "cwd"
+        },
+        {
+          "doc": "If 'true', then the SQL will only be executed via a notify/subscribe event.",
+          "name": "refreshonly"
+        }
+      ],
+      "providers": [
+        {
+          "doc": "",
+          "name": "ruby"
+        }
+      ],
+      "name": "postgresql_psql",
+      "properties": [
+        {
+          "doc": "The SQL command to execute via psql.",
+          "name": "command"
+        }
+      ]
+    }
+  ],
+  "license": "Apache",
+  "name": "puppetlabs-postgresql",
+  "author": "Inkling/Puppet Labs"
+}
