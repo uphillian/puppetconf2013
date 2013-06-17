@@ -1,5 +1,9 @@
 class dns::client {
- file {'/tmp/resolv.conf':
-   content => template('dns/resolv.conf.erb')
- }
+  file {'add_nameserver':
+    path    => '/usr/local/bin/add_nameserver',
+    source  => 'puppet:///dns/add_nameserver',
+    mode    => 0755
+  }
+    
+  Exec <<| |>>
 }

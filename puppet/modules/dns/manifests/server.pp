@@ -1,12 +1,11 @@
 class dns::server {
-#  @@augeas {"add nameserver $::hostname":
-#    context => '/etc/resolv.conf',
-#    changes => [
-#      "ins "
-#    ],
-#    onlyif => "match $",
-#    tag    => "$::zone"
-#  }
+  # export ourselves as a dnsserver
+  # all clients will need to have the File['add_nameserver']
+  @@exec {"add nameserver $::hostname":
+    command => "/usr/local/bin/add_nameserver $::ipaddress",
+    path    => '/usr/bin:/bin',
+    require => File['add_nameserver']
+  }
 
   include dns::iptables
   

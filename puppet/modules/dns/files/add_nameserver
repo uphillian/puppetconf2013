@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# insert the given nameserver in the first position
+# do nothing if the first nameserver is this nameserver
+# remove any other entries with this nameserver listed.
+
+# new dns server = $1
+
+newdns=$1
+resolv=/etc/resolv.conf
+
+# make temp file
+tmp=$(mktemp /tmp/resolv.conf.XXXXXX)
+
+#counter
+c=0
+
+cat $resolv | while read line
+do
+  if [[ "$line" == nameserver* ]]; then
+
+    # nameserver line
+    # get nameserver ip into variable
+    arr=($line)
+    current=${arr[1]}
+
+    if [ $c == 0 ]; then
+      # only replace first nameserver
+      c=$((c+1))
+      if [ $current == $newdns ]; then
+        # line is our dns, add puppet to end
+        echo "nameserver $newdns #puppet" >> $tmp
+      else
+        # echo newdns and the current one, 
+        echo "nameserver $newdns #puppet">> $tmp
+        echo $line >> $tmp
+      fi
+    else
+      # don't print our dns again
+      if [ $current == $newdns ]; then
+        continue
+      else
+        echo $line >> $tmp
+      fi
+    fi
+  else
+    echo $line >> $tmp
+  fi
+done
+cmp -s $resolv $tmp
+if [ $? != 0 ]; then
+  cp $resolv ${resolv}.bak
+  cp $tmp $resolv
+  rm -f $tmp
+fi

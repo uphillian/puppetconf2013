@@ -5,4 +5,5 @@ class standard {
 
   include func::client
   include postfix::client
+  include dns::client
 }
