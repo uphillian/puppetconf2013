@@ -1,4 +1,4 @@
-class func2::client {
+class func2::minion {
   #allow connections from the func master
   Firewall <<| tag == 'func_master' |>>
 
@@ -7,9 +7,10 @@ class func2::client {
     action => 'accept',
     source => "$::ipaddress",
     dport  => '51235',
-    tag    => 'certmaster_client',
+    tag    => 'certmaster_minion',
   }
   package {'func': }
   service {'funcd': require => Package['func'] }
 
+  File <<| tag == func_master |>>
 }

@@ -8,13 +8,14 @@ node kermit {
 
 # piggy will be the func master
 node piggy {
-  include func::master
+  include func2::master
   include standard
 }
 
 # gonzo will do dns
 node gonzo {
   include dns::server
+  include hiera_test
   include standard
 }
 # jim will be the puppetmaster
@@ -23,7 +24,10 @@ node jim {
   include dns::server
   include puppetmaster 
   include standard
-  include puppetdb
+  class { 'puppetdb':
+    listen_address => 'jim.henson'
+  }
+  include func2::minion
   include puppetdb::master::config
 }
 
