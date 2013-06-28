@@ -1,4 +1,4 @@
-class func::master {
+class func2::master {
   @@firewall { "51234 ACCEPT func from funcmaster $::hostname":
     action => 'accept',
     source => "$::ipaddress",

@@ -1,4 +1,4 @@
-class func::client {
+class func2::client {
   #allow connections from the func master
   Firewall <<| tag == 'func_master' |>>
 
