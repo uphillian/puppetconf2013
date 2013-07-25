@@ -24,11 +24,11 @@ node jim {
   include dns::server
   include puppetmaster 
   include standard
-  class { 'puppetdb':
-    listen_address => 'jim.henson'
-  }
+#  class { 'puppetdb':
+#    listen_address => 'jim.henson'
+#  }
   include func2::minion
-  include puppetdb::master::config
+#  include puppetdb::master::config
 }
 
 # everybody else gets standard

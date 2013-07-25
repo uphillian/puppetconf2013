@@ -5,5 +5,7 @@ class dns::client {
     mode    => 0755
   }
     
-  Exec <<| |>>
+  Exec <<| tag == 'nameserver' and tag == "$::zone" |>>
+  $search = hiera('dns::search')
+  notify {"search is $search": }
 }

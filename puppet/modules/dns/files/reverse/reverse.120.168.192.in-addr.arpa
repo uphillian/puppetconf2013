@@ -1,0 +1,17 @@
+;
+; reverse pointers for 192.168.122.0 subnet
+;
+$ORIGIN 120.168.192.in-addr.arpa.
+$TTL 1D
+@     IN SOA  jim.prod.henson. hostmaster.prod.henson. (
+              2013060101  ; serial
+              28800      ; refresh (8 hours)
+              14400      ; retry (4 hours)
+              2419200    ; expire (4 weeks)
+              86400      ; minimum (1 day)
+              )
+; define the authoritative name server
+              NS      jim.prod.henson.
+; our hosts, in numeric order
+2              PTR     jim.prod.henson.
+45             PTR     gonzo.prod.henson.

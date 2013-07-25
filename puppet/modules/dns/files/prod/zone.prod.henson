@@ -1,0 +1,18 @@
+$ORIGIN prod.henson.
+$TTL 1D
+@     IN SOA   root hostmaster (
+                        2013060102 ; serial
+                        8H        ; refresh
+                        4H        ; retry
+                        4W        ; expire
+                        1D )      ; minimum
+                NS      jim
+                MX      10 jim
+; 
+; just in case someone asks for localhost.henson
+localhost       A       127.0.0.1
+; CNAMES
+puppet          CNAME   jim
+; our hostnames, in alphabetical order
+jim             A       192.168.120.2
+gonzo             A       192.168.120.45
