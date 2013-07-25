@@ -29,10 +29,10 @@ do
       c=$((c+1))
       if [ $current == $newdns ]; then
         # line is our dns, add puppet to end
-        echo "nameserver $newdns #puppet" >> $tmp
+        echo "nameserver $newdns" >> $tmp
       else
         # echo newdns and the current one, 
-        echo "nameserver $newdns #puppet">> $tmp
+        echo "nameserver $newdns">> $tmp
         echo $line >> $tmp
       fi
     else
