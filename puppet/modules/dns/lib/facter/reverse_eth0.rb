@@ -13,6 +13,6 @@ cidr = nm.cidr
 Facter.add("reverse_eth0") do
   setcode do ip.reverse.to_s[2..-1] end
 end
-Facter.add("netmask_cidr_eth0") do
+Facter.add("network_cidr_eth0") do
   setcode do cidr end
 end
