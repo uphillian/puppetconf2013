@@ -1,1 +1,10 @@
-/etc/hiera.yaml
+---
+:backends:
+  - yaml
+:hierarchy:
+  - zones/%{zone}
+  - environments/%{environment}
+  - global
+
+:yaml:
+  :datadir: /etc/puppet/hieradata
