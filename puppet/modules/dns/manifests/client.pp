@@ -1,11 +1,26 @@
 class dns::client {
-  file {'add_nameserver':
-    path    => '/usr/local/bin/add_nameserver',
-    source  => 'puppet:///dns/add_nameserver',
-    mode    => 0755
-  }
-    
-  Exec <<| tag == 'nameserver' and tag == "$::zone" |>>
+  $domain = hiera('dns::domain')
   $search = hiera('dns::search')
-  notify {"search is $search": }
+
+  # include definition of concat for /etc/resolv.conf
+  include dns::resolv
+
+  # search the local search value
+  concat::fragment{'resolv.conf search': 
+    target  => '/etc/resolv.conf',
+    content => "search $search\n",
+    order   => 07, 
+  }
+
+  # pull in any nameservers
+  Concat::Fragment <<| tag == 'resolv.conf' and tag == "$::zone" |>>
+
+  # export ourselves to the zone file
+
+  @@concat::fragment {"zone henson $::hostname":
+    target  => '/var/named/zone.henson',
+    content => "$::hostname A $::ipaddress\n",
+    order   => 10,
+    tag     => ['zone','henson'],
+  }
 }

@@ -1,18 +1,22 @@
 class dns::server {
+  # define the concat for /etc/resolv.conf
+  include dns::resolv
+
   # export ourselves as a dnsserver
-  # all clients will need to have the File['add_nameserver']
-  @@exec {"add nameserver $::hostname":
-    command => "/usr/local/bin/add_nameserver $::ipaddress",
-    path    => '/usr/bin:/bin',
-    require => File['add_nameserver'],
-    tag     => ['nameserver',"$::zone"]
+  @@concat::fragment {"resolv.conf nameserver $::hostname":
+    target  => '/etc/resolv.conf',
+    content => "nameserver $::ipaddress\n",
+    order   => 10,
+    tag     => ['resolv.conf',"$::zone"],
   }
 
   include dns::iptables
   
+  # setup bind
   package {'bind': }
   service {'named': require => Package['bind'] }
 
+  # configure bind
   file {'/etc/named.conf':
     content => template('dns/named.conf.erb'),
     owner   => 0,
@@ -20,13 +24,24 @@ class dns::server {
     require => Package['bind'],
     notify  => Service['named']
   }
+
   # zone files
-  file {'/var/named/zone.henson':
-    source => "puppet:///dns/$::zone/zone.henson",
-    mode   => 640,
-    owner  => 0,
-    group  => 'named',
+
+  # make this one dynamically
+#  file {'/var/named/zone.henson':
+#    source => "puppet:///dns/$::zone/zone.henson",
+#    mode   => 640,
+#    owner  => 0,
+#    group  => 'named',
+#  }
+
+  exec {'named reload':
+    refreshonly => true,
+    command     => 'service named reload',
+    path        => '/usr/sbin:/sbin',
+    require     => Package['bind'],
   }
+
   file {"/var/named/zone.${::zone}.henson":
     source => "puppet:///dns/$::zone/zone.${::zone}.henson",
     mode   => 640,
@@ -39,4 +54,8 @@ class dns::server {
     owner  => 0,
     group  => 'named',
   }
+
+  # create zone.henson from all clients
+  include dns::zones
+  Concat::Fragment <<| tag == 'zone' and tag == 'henson' |>>
 }
