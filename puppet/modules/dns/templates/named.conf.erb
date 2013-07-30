@@ -5,7 +5,7 @@ options {
   dump-file   "/var/named/data/cache_dump.db";
         statistics-file "/var/named/data/named_stats.txt";
         memstatistics-file "/var/named/data/named_mem_stats.txt";
-  allow-query     { localhost; <%= @network_eth0 -%>; };
+  allow-query     { localhost; <%- interfaces.split(',').each do |eth| if has_variable?("network_cidr_#{eth}") then -%><%= scope.lookupvar("network_cidr_#{eth}") -%>;<%- end end -%> };
   recursion yes;
 
   dnssec-enable yes;
