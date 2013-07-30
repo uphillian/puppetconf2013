@@ -1,5 +1,5 @@
 ---
-netzone: development
-dom:  dev.henson
+netzone:     "development"
 
+dns::domain: "dev.henson"
 dns::search: "dev.henson henson corp.henson"

@@ -1,6 +1,5 @@
 ---
-netzone: production
-dom:  corp.henson
+netzone:     "production"
 
-dns:
-  search: "corp.henson henson"
+dns::domain: "corp.henson"
+dns::search: "corp.henson henson"

@@ -1,3 +1,5 @@
 ---
-netzone: production
-dom:  example.com
+netzone:             production
+dns::domain:         example.com
+
+dns::client::search: "henson"
