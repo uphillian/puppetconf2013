@@ -6,4 +6,5 @@ class standard {
 #  include func::minion
   include postfix::client
   include dns::client
+  Host <<| tag == 'puppet' |>>
 }

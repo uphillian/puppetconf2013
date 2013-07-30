@@ -6,4 +6,11 @@ class puppetmaster {
   package {'puppet-server-selinux': }
   package {'httpd': }
   service {'httpd': require => Package['httpd']}
+ 
+  @@host {'puppet':
+    ensure       => 'present',
+    ip           => "$::ipaddress_eth0",
+    host_aliases => ["$::hostname","$::fqdn"],
+    tag          => 'puppet',
+  }
 }
