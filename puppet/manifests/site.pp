@@ -3,32 +3,25 @@ import "defaults.pp"
 # kermit will be the email server
 node kermit {
   include postfix::master
-  include standard
+  include dns::client
 }
 
-# piggy will be the func master
 node piggy {
-  include func2::master
-  include standard
+  include dns::client
 }
 
 # gonzo will do dns
 node gonzo {
+  include postfix::client
   include dns::server
-  include hiera_test
-  include standard
+  include dns::client
 }
 # jim will be the puppetmaster
 # jim will do dns
 node jim {
   include dns::server
   include puppetmaster 
-  include standard
-#  class { 'puppetdb':
-#    listen_address => 'jim.henson'
-#  }
-  include func2::minion
-#  include puppetdb::master::config
+  include dns::client
 }
 
 # everybody else gets standard
