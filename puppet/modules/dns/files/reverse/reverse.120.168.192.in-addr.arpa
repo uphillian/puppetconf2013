@@ -12,6 +12,6 @@ $TTL 1D
               )
 ; define the authoritative name server
               NS      jim.prod.henson.
-; our hosts, in numeric order
+; static
 2              PTR     jim.prod.henson.
-45             PTR     gonzo.prod.henson.
+; exported resources below this point

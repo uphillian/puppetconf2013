@@ -23,4 +23,11 @@ class dns::client {
     order   => 10,
     tag     => ['zone','henson'],
   }
+  $lastoctet = regsubst($::ipaddress_eth0,'^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$','\4')
+  @@concat::fragment {"zone reverse $::reverse_eth0 $::hostname":
+    target  => "/var/named/reverse.$::reverse_eth0",
+    content => "$lastoctet PTR $::fqdn\n",
+    order   => 10,
+    tag     => ['zone','henson'],
+  }
 }

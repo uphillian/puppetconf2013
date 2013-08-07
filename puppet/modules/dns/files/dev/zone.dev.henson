@@ -13,5 +13,6 @@ $TTL 1D
 localhost       A       127.0.0.1
 ; CNAMES
 puppet          CNAME   jim
-; our hostnames, in alphabetical order
+; static entries
 jim             A       192.168.122.24
+; exported resources below this point

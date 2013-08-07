@@ -48,12 +48,12 @@ class dns::server {
     owner  => 0,
     group  => 'named',
   }
-  file {"/var/named/reverse.${::reverse_eth0}":
-    source => "puppet:///dns/reverse/reverse.${::reverse_eth0}",
-    mode   => 640,
-    owner  => 0,
-    group  => 'named',
-  }
+  #file {"/var/named/reverse.${::reverse_eth0}":
+  #  source => "puppet:///dns/reverse/reverse.${::reverse_eth0}",
+  #  mode   => 640,
+  #  owner  => 0,
+  #  group  => 'named',
+  #}
 
   # create zone.henson from all clients
   include dns::zones

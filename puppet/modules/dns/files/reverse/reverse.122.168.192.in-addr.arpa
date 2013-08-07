@@ -12,8 +12,6 @@ $TTL 1D
               )
 ; define the authoritative name server
               NS      jim.dev.henson.
-; our hosts, in numeric order
+; static
 24             PTR     jim.dev.henson.
-25             PTR     kermit.dev.henson.
-26             PTR     piggy.dev.henson.
-27             PTR     gonzo.dev.henson.
+; exported resources below this point
