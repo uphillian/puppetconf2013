@@ -1,4 +1,5 @@
 class func2::minion {
+  include base::firewall
   #allow connections from the func master
   Firewall <<| tag == 'func_master' |>>
 
@@ -9,8 +10,24 @@ class func2::minion {
     dport  => '51235',
     tag    => 'certmaster_minion',
   }
-  package {'func': }
-  service {'funcd': require => Package['func'] }
+  @@exec {"sign certificate for $::fqdn":
+    command => "certmaster-ca --sign $::fqdn",
+    path    => '/usr/bin:/bin',
+    creates => "/var/lib/certmaster/certmaster/certs/${::fqdn}.cert",
+    tag     => 'certmaster_sign_minion',
+  }
 
-  File <<| tag == func_master |>>
+
+
+  package {'func': }
+  service {'funcd':
+    ensure => running,
+    require => Package['func']
+  }
+
+  # pull in func master host entry
+  Host <<| tag == 'func_master' |>> {
+    before => Service['funcd']
+  }
+  File <<| tag == 'func_master' |>>
 }
