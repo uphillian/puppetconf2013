@@ -1,4 +1,5 @@
-class dns::iptables {
+class dns::firewall {
+  include base::firewall
   firewall {'53 domain udp':
     proto  => 'udp',
     action => 'accept',

@@ -1,6 +1,7 @@
 class dns::server {
   # define the concat for /etc/resolv.conf
   include dns::resolv
+  include dns::client
 
   # export ourselves as a dnsserver
   @@concat::fragment {"resolv.conf nameserver $::hostname":
@@ -10,7 +11,7 @@ class dns::server {
     tag     => ['resolv.conf',"$::zone"],
   }
 
-  include dns::iptables
+  include dns::firewall
   
   # setup bind
   package {'bind': }
