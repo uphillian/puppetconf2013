@@ -21,8 +21,10 @@ class func2::minion {
 
   package {'func': }
   service {'funcd':
-    ensure => running,
-    require => Package['func']
+    ensure    => running,
+    require   => Package['func'],
+    # http://projects.puppetlabs.com/issues/8346
+    hasstatus => false,
   }
 
   # pull in func master host entry
