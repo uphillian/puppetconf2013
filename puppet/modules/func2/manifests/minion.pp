@@ -18,11 +18,18 @@ class func2::minion {
   }
 
 
-
+  # configure minion
+  file {'/etc/func/minion.conf':
+    mode    => 0644,
+    owner   => 0,
+    group   => 0,
+    content => template('func2/etc/func/minion.conf.erb'),
+    notify  => Service['funcd'],
+  }
   package {'func': }
   service {'funcd':
     ensure    => running,
-    require   => Package['func'],
+    require   => [File['/etc/func/minion.conf'],Package['func']],
     # http://projects.puppetlabs.com/issues/8346
     hasstatus => false,
   }

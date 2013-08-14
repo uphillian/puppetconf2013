@@ -27,5 +27,8 @@ class func2::master {
   Exec <<| tag == 'certmaster_sign_minion' |>>
 
   package { 'certmaster': }
-  service { 'certmaster': require => Package['certmaster'] }
+  service { 'certmaster': 
+    require    => Package['certmaster'],
+    hasstatus => false,
+  }
 }

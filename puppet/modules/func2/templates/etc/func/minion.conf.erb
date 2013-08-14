@@ -1,0 +1,10 @@
+# configuration for minions
+
+[main]
+log_level = INFO
+acl_dir = /etc/func/minion-acl.d
+
+listen_addr =
+listen_port = 51234
+minion_name = <%= @fqdn %>
+method_log_dir = /var/log/func/methods/
