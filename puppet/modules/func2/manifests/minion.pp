@@ -3,17 +3,11 @@ class func2::minion {
   #allow connections from the func master
   Firewall <<| tag == 'func_master' |>>
 
-  #allow connections from us to the certmaster
-  @@firewall {"51235 ACCEPT certmaster from $::hostname":
-    action => 'accept',
-    source => "$::ipaddress",
-    dport  => '51235',
-    tag    => 'certmaster_minion',
-  }
   @@exec {"sign certificate for $::fqdn":
     command => "certmaster-ca --sign $::fqdn",
     path    => '/usr/bin:/bin',
     creates => "/var/lib/certmaster/certmaster/certs/${::fqdn}.cert",
+    onlyif  => "/usr/bin/test -f /var/lib/certmaster/certmaster/csrs/${::fqdn}.csr",
     tag     => 'certmaster_sign_minion',
   }
 

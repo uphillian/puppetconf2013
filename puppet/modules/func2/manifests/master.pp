@@ -7,6 +7,12 @@ class func2::master {
     tag    => 'func_master',
   }
 
+  #allow connections to the certmaster
+  firewall {"51235 ACCEPT certmaster":
+    action => 'accept',
+    dport  => '51235',
+  }
+
   Firewall <<| tag == 'certmaster_minion' |>>
 
   # export our host entry
@@ -24,7 +30,11 @@ class func2::master {
   }
 
   # sign minion keys
-  Exec <<| tag == 'certmaster_sign_minion' |>>
+  Exec <<| tag == 'certmaster_sign_minion' |>> {
+    stage => 'post'
+  }
+
+
 
   package { 'certmaster': }
   service { 'certmaster': 
