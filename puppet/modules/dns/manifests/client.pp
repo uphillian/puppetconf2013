@@ -1,6 +1,7 @@
 class dns::client {
-  $domain = hiera('dns::domain')
-  $search = hiera('dns::search')
+  # pull settings from hiera, sensible defaults
+  $domain = hiera('dns::domain','henson')
+  $search = hiera('dns::search','henson')
 
   # include definition of concat for /etc/resolv.conf
   include dns::resolv

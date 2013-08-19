@@ -26,16 +26,6 @@ class dns::server {
     notify  => Service['named']
   }
 
-  # zone files
-
-  # make this one dynamically
-#  file {'/var/named/zone.henson':
-#    source => "puppet:///dns/$::zone/zone.henson",
-#    mode   => 640,
-#    owner  => 0,
-#    group  => 'named',
-#  }
-
   exec {'named reload':
     refreshonly => true,
     command     => 'service named reload',
@@ -49,14 +39,8 @@ class dns::server {
     owner  => 0,
     group  => 'named',
   }
-  #file {"/var/named/reverse.${::reverse_eth0}":
-  #  source => "puppet:///dns/reverse/reverse.${::reverse_eth0}",
-  #  mode   => 640,
-  #  owner  => 0,
-  #  group  => 'named',
-  #}
 
-  # create zone.henson from all clients
+  # include zone.henson from everyone else.
   include dns::zones
   Concat::Fragment <<| tag == 'zone' and tag == 'henson' |>>
 }
